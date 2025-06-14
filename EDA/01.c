@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define ORDER 500
+#define ORDER 4
 
 void generateRandomMatrice( int matrice[][ORDER]);
 void generateTransposedMatrice( int originalMatrice[][ORDER], int outputMatrice[][ORDER]);
 void multiplyMatrices( int matriceA[][ORDER], int matriceB[][ORDER], int outputMatrice[][ORDER]);
-int verifyOrtogonality(int matrice[][ORDER]);
+int verifyOrthogonality(int matrice[][ORDER]);
 
 int main() {
     system("clear");
@@ -16,8 +16,8 @@ int main() {
     generateRandomMatrice( numbersMatrice);    
     generateTransposedMatrice( numbersMatrice, transposedMatrice);
     multiplyMatrices( numbersMatrice, transposedMatrice, numbersMultipliedByTransposed);
-    if (verifyOrtogonality(numbersMultipliedByTransposed)) {
-        printf("\n\n\nOrtogonal Matrice.");
+    if (verifyOrthogonality(numbersMultipliedByTransposed)) {
+        printf("\n\n\nOrthogonal Matrice.");
     } else {
         printf("\n\n\nNot ortogonal.");
     }
@@ -71,7 +71,7 @@ void multiplyMatrices( int matriceA[][ORDER], int matriceB[][ORDER], int outputM
     return;
 } 
 
-int verifyOrtogonality(int matrice[][ORDER]) {
+int verifyOrthogonality(int matrice[][ORDER]) {
     for (int i = 0; i < ORDER; i++) {
         for (int j = 0; j < ORDER; j++) {
             if (((i == j) && (matrice[i][j] != 1)) || ((i != j) && (matrice[i][j] != 0))) return 0;
