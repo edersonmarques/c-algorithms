@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-// #define ORDER 4
 
 int **generateMatrice(int order);
 void freeMatrice(int order, int **matrice);
 void printMatrice(int order, int **matrice);
-int generateTransposedMatrice(int order, int **matrice);
+int **generateTransposedMatrice(int order, int **matrice);
 int multiplyMatrices(int order, int **matriceA, int **matriceB);
 int isOrthogonal(int order, int **matrice);
 
@@ -17,7 +16,10 @@ int main() {
     system("clear");
     int **numbersMatrice = generateMatrice(order);
     printMatrice(order, numbersMatrice);
+    printf("\n");
+    printMatrice(order, generateTransposedMatrice(order, numbersMatrice));
     freeMatrice(order, numbersMatrice);
+    
     return 0;
 }
 
@@ -30,8 +32,7 @@ int **generateMatrice(int order) {
     for (int i = 0; i < order; i++) {
         for (int j = 0; j < order; j++) {
             matrice[i][j] = rand() % 30;
-        }
-        
+        }   
     }
     return matrice;
 }
@@ -61,19 +62,28 @@ void printMatrice(int order, int **matrice) {
     }
 }
 
-int generateTransposedMatrice(int order, int **matrice) {
-    int **transposedMatrice;
-    //to do
+int **generateTransposedMatrice(int order, int **matrice) {
+    int **transposedMatrice = malloc(sizeof(int*) * order);
+
+    for (int i = 0; i < order; i++) {
+        transposedMatrice[i] = malloc(sizeof(int) * order);
+    }
+
+    for (int i = 0; i < order; i++) {
+        for (int j = 0; j < order; j++) {
+            transposedMatrice[i][j] = matrice[j][i];
+        }
+    }
     return transposedMatrice;
 }
 
-int  multiplyMatrices(int order, int **matriceA, int **matriceB) {
-    int **productMatrice;
-    //to do
-    return productMatrice;
-}
+// int  multiplyMatrices(int order, int **matriceA, int **matriceB) {
+//     int **productMatrice;
+//     //to do
+//     return productMatrice;
+// }
 
-int isOrthogonal(int order, int **matrice) {
-    //to do
-    return 0;
-}
+// int isOrthogonal(int order, int **matrice) {
+//     //to do
+//     return 0;
+// }
