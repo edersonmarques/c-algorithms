@@ -90,12 +90,23 @@ int  **multiplyMatrices(int order, int **matriceA, int **matriceB) {
                 productMatrice[i][j] += matriceA[i][counter] * matriceB[counter][j];
             } 
         }
-    }
-    
+    } 
     return productMatrice;
 }
 
-// int isOrthogonal(int order, int **matrice) {
-//     //to do
-//     return 0;
-// }
+int isOrthogonal(int order, int **matrice) {
+    int **transposed = generateTransposedMatrice(order, matrice);
+    int **matriceTransposedProduct = multiplyMatrices(order, matrice, transposed);
+    for (int i = 0; i < order; i++) {
+        for (int j = 0; j < order; j++) {
+            if (((i == j) && (matriceTransposedProduct[i][j] != 1)) || ((i != j) && (matriceTransposedProduct[i][j] != 0))) {
+                freeMatrice(order, transposed);
+                freeMatrice(order, matriceTransposedProduct);
+                return 0;
+            }
+        }
+    }
+    freeMatrice(order, transposed);
+    freeMatrice(order, matriceTransposedProduct);
+    return 1;
+}
