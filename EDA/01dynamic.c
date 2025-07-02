@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+int **generateEmptyMatrice(int order);
 int **generateMatrice(int order);
 void freeMatrice(int order, int **matrice);
 void printMatrice(int order, int **matrice);
@@ -14,16 +15,33 @@ int main() {
     printf("Enter the matrice order: ");
     scanf("%d", &order);
     system("clear");
-    int **numbersMatrice = generateMatrice(order);
+    // int **numbersMatrice = generateMatrice(order);
+    int **numbersMatrice = generateEmptyMatrice(order);
+    for (int i = 0; i < order; i++) {
+        for (int j = 0; j < order; j ++) {
+            printf("Enter the %dx%d element: ", i, j);
+            scanf("%d", &numbersMatrice[i][j]);
+            system("clear");
+        }
+    }
+    printf("\n\n");
     printMatrice(order, numbersMatrice);
-    printf("\n");
-    printMatrice(order, generateTransposedMatrice(order, numbersMatrice));
-    int **matriceAB = multiplyMatrices(order, numbersMatrice, generateTransposedMatrice(order, numbersMatrice));
-    printf("\n");
-    printMatrice(order, matriceAB);
+    printf("\n\n");
+    if (isOrthogonal(order, numbersMatrice)) {
+        printf("It is orthogonal!");
+    } else {
+        printf("It is not orthogonal!");
+    }
     freeMatrice(order, numbersMatrice);
-    freeMatrice(order, matriceAB);
     return 0;
+}
+
+int **generateEmptyMatrice(int order) {
+    int **matrice = malloc(sizeof(int*) * order);
+    for (int i = 0; i < order; i++) {
+        matrice[i] = malloc(sizeof(int) * order);
+    }
+    return matrice;
 }
 
 int **generateMatrice(int order) {
